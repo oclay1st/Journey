@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-
 @SpringBootApplication
 public class JourneyApplication {
 
@@ -15,7 +14,7 @@ public class JourneyApplication {
     }
 
     @Bean(name = "flyway")
-    public Flyway flyawayConfig(){
+    public Flyway flyawayConfig() {
         final FluentConfiguration configuration = new FluentConfiguration();
         return new Flyway(configuration);
     }

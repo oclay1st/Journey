@@ -11,7 +11,7 @@ public class UserRepositoryJPA implements UserRepository {
 
     private final UserRepositoryDAO userRepositoryDAO;
 
-    public UserRepositoryJPA(UserRepositoryDAO userRepositoryDAO){
+    public UserRepositoryJPA(UserRepositoryDAO userRepositoryDAO) {
         this.userRepositoryDAO = userRepositoryDAO;
     }
 

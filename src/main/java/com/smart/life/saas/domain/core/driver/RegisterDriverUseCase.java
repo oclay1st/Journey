@@ -7,7 +7,7 @@ public class RegisterDriverUseCase {
 
     private final DriverRepository driverRepository;
 
-    public RegisterDriverUseCase(DriverRepository driverRepository){
+    public RegisterDriverUseCase(DriverRepository driverRepository) {
         this.driverRepository = driverRepository;
     }
 

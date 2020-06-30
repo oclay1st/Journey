@@ -11,7 +11,7 @@ public class ListDriversUseCase {
 
     private final DriverRepository driverRepository;
 
-    public Page<Driver> execute(Pageable pageable){
+    public Page<Driver> execute(Pageable pageable) {
         return driverRepository.findAll(pageable);
     }
 }

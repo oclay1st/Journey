@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Getter
@@ -18,7 +19,9 @@ import java.util.Collection;
 @Entity
 public class User implements UserDetails {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE) private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     private String username;
     private String password;
     private String email;
@@ -26,7 +29,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

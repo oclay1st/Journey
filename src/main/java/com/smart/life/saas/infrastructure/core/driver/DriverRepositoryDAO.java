@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 
-public interface DriverRepositoryDAO extends JpaRepository<Driver,Long>, JpaSpecificationExecutor<Driver> {
+public interface DriverRepositoryDAO extends JpaRepository<Driver, Long>, JpaSpecificationExecutor<Driver> {
 
     @Override
     Optional<Driver> findById(Long Id);

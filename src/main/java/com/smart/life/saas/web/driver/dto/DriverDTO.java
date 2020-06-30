@@ -1,9 +1,7 @@
 package com.smart.life.saas.web.driver.dto;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDate;
 
