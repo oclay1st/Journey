@@ -1,25 +1,29 @@
 package com.smart.life.saas.web.driver;
 
 import com.smart.life.saas.domain.core.driver.Driver;
-import com.smart.life.saas.domain.core.driver.ListDriversUseCase;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.smart.life.saas.domain.core.driver.DriverService;
+import com.smart.life.saas.web.driver.dto.DriverDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RequestMapping("/drivers")
 @RestController
 public class DriverController {
 
-    private final ListDriversUseCase listDriversUseCase;
+    private final DriverService driverService;
 
-    public DriverController(ListDriversUseCase listDriversUseCase) {
-        this.listDriversUseCase = listDriversUseCase;
+    public DriverController(DriverService driverService) {
+        this.driverService = driverService;
     }
 
-    @GetMapping
-    public Page<Driver> getAllDrivers(Pageable pageable) {
-        return listDriversUseCase.execute(pageable);
+    @PostMapping
+    public ResponseEntity<Driver> save(@Valid DriverDTO driverDTO) {
+        return new ResponseEntity<>(driverService.save(new Driver()), HttpStatus.CREATED);
     }
+
 }

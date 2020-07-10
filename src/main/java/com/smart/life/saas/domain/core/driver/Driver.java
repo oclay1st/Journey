@@ -1,5 +1,6 @@
 package com.smart.life.saas.domain.core.driver;
 
+import com.smart.life.saas.domain.core.common.Gender;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -14,8 +15,13 @@ public class Driver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    private Long id;
+
     private String licenseId;
+
     private Integer bookingLimit;
+
     private LocalDate birthday;
+
+    private Gender gender;
 }

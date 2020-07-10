@@ -7,21 +7,21 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
-@NoArgsConstructor
-@Getter
 @Setter
-public class Fleet {
+@Getter
+@NoArgsConstructor
+public class FleetModel {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String number;
+    private String name;
 
-    @ManyToOne
-    private FleetModel model;
+    private boolean active;
+
+    private String thumbImage;
 
 }
