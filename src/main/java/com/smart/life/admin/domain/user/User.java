@@ -1,5 +1,6 @@
-package com.smart.life.saas.domain.core.user;
+package com.smart.life.admin.domain.user;
 
+import com.smart.life.admin.domain.org.Org;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,24 +24,21 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     private String username;
+
     private String password;
+
     private String email;
+
     private boolean active;
+
+    @ManyToOne
+    private Org org;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>();
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
     }
 
     @Override

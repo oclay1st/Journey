@@ -1,7 +1,7 @@
-package com.smart.life.saas.infrastructure.core.user;
+package com.smart.life.admin.infrastructure.user;
 
-import com.smart.life.saas.domain.core.user.User;
-import com.smart.life.saas.domain.core.user.UserRepository;
+import com.smart.life.admin.domain.user.User;
+import com.smart.life.admin.domain.user.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.smart.life.saas.domain.core.user;
+package com.smart.life.admin.domain.user;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.smart.life.config;
 
-import com.smart.life.saas.domain.core.user.AppUserDetailService;
+import com.smart.life.admin.domain.user.AppUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
