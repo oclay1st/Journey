@@ -1,6 +1,6 @@
 package com.smart.life.saas.domain.core.driver;
 
-import com.smart.life.saas.domain.core.common.Gender;
+import com.smart.life.saas.domain.common.Gender;
 import lombok.Data;
 
 import javax.persistence.Entity;

@@ -1,6 +1,6 @@
 package com.smart.life.saas.web.driver.dto;
 
-import com.smart.life.saas.domain.core.common.Gender;
+import com.smart.life.saas.domain.common.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
