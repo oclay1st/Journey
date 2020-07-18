@@ -4,6 +4,8 @@ import com.smart.life.saas.domain.core.fleet.Fleet;
 import com.smart.life.saas.domain.core.fleet.FleetModel;
 import com.smart.life.saas.domain.core.fleet.FleetRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,5 +24,10 @@ public class FleetRepositoryJPA implements FleetRepository {
     @Override
     public FleetModel saveModel(FleetModel fleetModel) {
         return fleetModelRepositoryDAO.save(fleetModel);
+    }
+
+    @Override
+    public Page<FleetModel> findAllModels(Pageable pageable) {
+        return fleetModelRepositoryDAO.findAll(pageable);
     }
 }
