@@ -1,7 +1,7 @@
 package com.smart.life.saas.web.fleet;
 
 import com.smart.life.saas.domain.core.fleet.FleetModel;
-import com.smart.life.saas.domain.core.fleet.FleetService;
+import com.smart.life.saas.domain.core.fleet.FleetModelService;
 import com.smart.life.saas.web.fleet.dto.FleetModelDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,27 +21,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@RestController
 @Tag(name = "Fleet Models")
+@RestController
 @RequestMapping("/fleetModels")
 public class FleetModelController {
 
-    private FleetService fleetService;
+    private FleetModelService fleetModelService;
 
-    public FleetModelController(FleetService fleetService) {
-        this.fleetService = fleetService;
+    public FleetModelController(FleetModelService fleetModelService) {
+        this.fleetModelService = fleetModelService;
     }
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @Operation(summary = "Create a new fleet model")
     @ApiResponses(value = { @ApiResponse(description = "A fleet model resource") })
     public ResponseEntity<FleetModel> save(@Valid @ModelAttribute FleetModelDTO fleetModelDTO) {
-        return new ResponseEntity<>(new FleetModel(), HttpStatus.CREATED);
+        FleetModel model = fleetModelService.create(fleetModelDTO);
+        return new ResponseEntity<>(model, HttpStatus.CREATED);
     }
 
     @GetMapping
     @Operation(summary = "List fleet models")
     public ResponseEntity<Page<FleetModel>> listModels(@RequestParam PageRequest pageRequest) {
-        return ResponseEntity.ok(fleetService.findAllModels(pageRequest));
+        return ResponseEntity.ok(fleetModelService.findAll(pageRequest));
     }
 }
