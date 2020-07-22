@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,11 +32,11 @@ public class OSFileStorageService implements FileStorageService {
         if (!path.isAbsolute()) {
             throw new JourneyException();
         }
-        try {
+        try (InputStream fileStream = multipartFile.getInputStream()) {
             if (!Files.exists(filePath.getParent())) {
                 Files.createDirectory(filePath.getParent());
             }
-            multipartFile.transferTo(filePath);
+            Files.copy(fileStream, filePath);
         } catch (IOException ex) {
             throw new JourneyException();
         }
