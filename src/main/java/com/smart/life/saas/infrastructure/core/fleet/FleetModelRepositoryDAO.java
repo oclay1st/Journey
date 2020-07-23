@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FleetModelRepositoryDAO extends JpaRepository<FleetModel, Long> {
 
-    <S extends FleetModel> boolean existsByNameAndIdNot(String name, Long id);
+    boolean existsByNameAndIdNot(String name, Long id);
 }

@@ -5,12 +5,10 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Setter
 @Getter
-public class FleetModelDTO implements Serializable {
-    private static final Long serialVersionUID = 1L;
+public class FleetModelDTO {
 
     @NotNull
     private String name;

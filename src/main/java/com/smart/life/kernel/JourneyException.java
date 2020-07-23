@@ -9,7 +9,7 @@ public class JourneyException extends RuntimeException {
         RESOURCE_NOT_FOUND, UNEXPECTED, UNAUTHORIZED, PRECONDITION_FAILED, UNSUPPORTED_TYPE
     }
 
-    private ErrorType errorType;
+    private final ErrorType errorType;
 
     private JourneyException(String message, Throwable throwable) {
         super(message, throwable);

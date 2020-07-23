@@ -21,7 +21,7 @@ public class OSFileStorageService implements FileStorageService {
 
     @Override
     public Path resolveFilePath(String parentPath, String fileName) {
-        int lastPosition = fileName.lastIndexOf(".");
+        int lastPosition = fileName.lastIndexOf('.');
         String extension = fileName.substring(lastPosition);
         return Paths.get(uploadBasePath, parentPath, UUID.randomUUID().toString() + extension);
     }
@@ -33,7 +33,7 @@ public class OSFileStorageService implements FileStorageService {
             throw JourneyException.preconditionFailed("The file path must be absolute");
         }
         try (InputStream fileStream = multipartFile.getInputStream()) {
-            if (!Files.exists(filePath.getParent())) {
+            if (!filePath.getParent().toFile().exists()) {
                 Files.createDirectory(filePath.getParent());
             }
             Files.copy(fileStream, filePath);

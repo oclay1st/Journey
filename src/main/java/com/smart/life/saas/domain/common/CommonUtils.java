@@ -9,6 +9,10 @@ public class CommonUtils {
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
     private static final Pattern EDGES_DHASHES = Pattern.compile("(^-|-$)");
 
+    private CommonUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static String toSlug(String input) {
         String noWhitespace = WHITESPACE.matcher(input).replaceAll("-");
         String normalized = Normalizer.normalize(noWhitespace, Normalizer.Form.NFD);
