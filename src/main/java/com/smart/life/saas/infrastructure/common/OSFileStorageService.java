@@ -30,7 +30,7 @@ public class OSFileStorageService implements FileStorageService {
     public Path saveFile(MultipartFile multipartFile, Path path) {
         Path filePath = path.normalize();
         if (!path.isAbsolute()) {
-            throw new JourneyException();
+            throw JourneyException.preconditionFailed("The file path must be absolute");
         }
         try (InputStream fileStream = multipartFile.getInputStream()) {
             if (!Files.exists(filePath.getParent())) {
@@ -38,7 +38,7 @@ public class OSFileStorageService implements FileStorageService {
             }
             Files.copy(fileStream, filePath);
         } catch (IOException ex) {
-            throw new JourneyException();
+            throw JourneyException.unexpected("Error handling files", ex);
         }
         return filePath;
     }
@@ -48,7 +48,7 @@ public class OSFileStorageService implements FileStorageService {
         try {
             Files.delete(path);
         } catch (IOException ex) {
-            throw new JourneyException();
+            throw JourneyException.unexpected("Error deleting file with path :" + path.toString(), ex);
         }
     }
 }

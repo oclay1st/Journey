@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,14 +36,20 @@ public class FleetModelController {
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @Operation(summary = "Create a new fleet model")
     @ApiResponses(value = { @ApiResponse(description = "A fleet model resource") })
-    public ResponseEntity<FleetModel> save(@Valid @ModelAttribute FleetModelDTO fleetModelDTO) {
+    public ResponseEntity<FleetModel> save(@ModelAttribute @Valid FleetModelDTO fleetModelDTO) {
         FleetModel model = fleetModelService.create(fleetModelDTO);
         return new ResponseEntity<>(model, HttpStatus.CREATED);
     }
 
     @GetMapping
-    @Operation(summary = "List fleet models")
+    @Operation(summary = "A paginate fleet model list")
     public ResponseEntity<Page<FleetModel>> listModels(@RequestParam PageRequest pageRequest) {
         return ResponseEntity.ok(fleetModelService.findAll(pageRequest));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get a fleet model by id")
+    public ResponseEntity<FleetModel> getFleetModel(@PathVariable Long id) {
+        return ResponseEntity.of(fleetModelService.findById(id));
     }
 }

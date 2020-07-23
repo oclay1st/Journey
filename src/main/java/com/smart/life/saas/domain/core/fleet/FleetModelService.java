@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 @Service
 public class FleetModelService {
@@ -20,13 +21,25 @@ public class FleetModelService {
         this.fileStorageService = fileStorageService;
     }
 
+    /**
+     * Validate a {@link FleetModelDTO} : fleet model creation
+     *
+     * @param fleetModelDTO: a fleet model DTO
+     */
     private void validateCreate(FleetModelDTO fleetModelDTO) {
         boolean modelExists = fleetModelRepository.existsByNameAndIdNot(fleetModelDTO.getName(), -1L);
         if (modelExists) {
-            throw new JourneyException();
+            throw JourneyException
+                    .preconditionFailed(String.format("Fleet model with name: %s already exists", fleetModelDTO.getName()));
         }
     }
 
+    /**
+     * Create a new fleet model
+     *
+     * @param fleetModelDTO: a fleet model DTO
+     * @return {@link FleetModel} a fleet model instance
+     */
     public FleetModel create(FleetModelDTO fleetModelDTO) {
         validateCreate(fleetModelDTO);
 
@@ -40,7 +53,23 @@ public class FleetModelService {
         return fleetModelRepository.save(model);
     }
 
+    /**
+     * Find all fleet models by pagination
+     *
+     * @param pageable: a {@link Pageable} instance
+     * @return {@link Page<FleetModel>} a fleet model paginate instance
+     */
     public Page<FleetModel> findAll(Pageable pageable) {
         return fleetModelRepository.findAll(pageable);
+    }
+
+    /**
+     * Find a fleet model base on a given id
+     *
+     * @param id: a fleet model identifier
+     * @return {@link Optional<FleetModel>} a optional fleet model instance
+     */
+    public Optional<FleetModel> findById(Long id) {
+        return fleetModelRepository.findById(id);
     }
 }
