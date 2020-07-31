@@ -2,6 +2,7 @@ package com.smart.life.saas.web.fleet;
 
 import com.smart.life.saas.domain.core.fleet.FleetModel;
 import com.smart.life.saas.domain.core.fleet.FleetModelService;
+import com.smart.life.saas.infrastructure.core.fleet.FleetModelConstants;
 import com.smart.life.saas.web.fleet.dto.FleetModelDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,7 +25,7 @@ import javax.validation.Valid;
 
 @Tag(name = "Fleet Models")
 @RestController
-@RequestMapping("/fleetModels")
+@RequestMapping(FleetModelConstants.BASE_PATH)
 public class FleetModelController {
 
     private FleetModelService fleetModelService;
@@ -47,9 +48,9 @@ public class FleetModelController {
         return ResponseEntity.ok(fleetModelService.findAll(pageRequest));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(FleetModelConstants.GET_BY_ID_PATH)
     @Operation(summary = "Get a fleet model by id")
-    public ResponseEntity<FleetModel> getFleetModel(@PathVariable Long id) {
+    public ResponseEntity<FleetModel> getFleetModelById(@PathVariable Long id) {
         return ResponseEntity.of(fleetModelService.findById(id));
     }
 }
