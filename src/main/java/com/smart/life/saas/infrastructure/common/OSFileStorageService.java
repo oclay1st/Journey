@@ -16,7 +16,7 @@ import java.util.UUID;
 @Service
 public class OSFileStorageService implements FileStorageService {
 
-    @Value("${journey.upload.path}")
+    @Value("${spring.servlet.multipart.location}")
     private String uploadBasePath;
 
     @Override
