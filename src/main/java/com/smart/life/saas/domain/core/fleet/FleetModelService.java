@@ -2,6 +2,7 @@ package com.smart.life.saas.domain.core.fleet;
 
 import com.smart.life.kernel.JourneyException;
 import com.smart.life.saas.domain.common.FileStorageService;
+import com.smart.life.saas.infrastructure.core.fleet.FleetModelConstants;
 import com.smart.life.saas.web.fleet.dto.FleetModelDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +45,7 @@ public class FleetModelService {
         validateCreate(fleetModelDTO);
 
         Path filePath = fileStorageService
-                .resolveFilePath(Constants.MODEL_THUMB_IMAGE_PATH, fleetModelDTO.getThumbImageFile().getOriginalFilename());
+                .resolveFilePath(FleetModelConstants.MODEL_THUMB_IMAGE_PATH, fleetModelDTO.getThumbImageFile().getOriginalFilename());
 
         Path realFilePath = fileStorageService.saveFile(fleetModelDTO.getThumbImageFile(), filePath);
 

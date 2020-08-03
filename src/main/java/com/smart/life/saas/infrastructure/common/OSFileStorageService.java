@@ -5,6 +5,7 @@ import com.smart.life.saas.domain.common.FileStorageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,5 +51,10 @@ public class OSFileStorageService implements FileStorageService {
         } catch (IOException ex) {
             throw JourneyException.unexpected("Error deleting file with path :" + path.toString(), ex);
         }
+    }
+
+    @Override
+    public String getURL(String fileUriPath) {
+        return ServletUriComponentsBuilder.fromCurrentServletMapping().path(fileUriPath).toUriString();
     }
 }

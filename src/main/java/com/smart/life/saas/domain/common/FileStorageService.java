@@ -11,4 +11,6 @@ public interface FileStorageService {
     Path saveFile(MultipartFile file, Path path);
 
     void deleteFile(Path path);
+
+    String getURL(String FileLocation);
 }
