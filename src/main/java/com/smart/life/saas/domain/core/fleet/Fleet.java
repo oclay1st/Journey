@@ -2,12 +2,12 @@ package com.smart.life.saas.domain.core.fleet;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -21,7 +21,23 @@ public class Fleet {
 
     private String number;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private FleetModel model;
+
+    @NonNull
+    private Long typeId;
+
+    @NonNull
+    @Min(1)
+    private Integer capacity;
+
+    @NonNull
+    @Min(0)
+    private Integer maxLuggage;
+
+    private boolean active;
+
+    @ElementCollection
+    private List<String> images;
 
 }

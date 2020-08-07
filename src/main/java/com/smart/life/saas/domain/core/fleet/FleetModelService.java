@@ -73,4 +73,8 @@ public class FleetModelService {
     public Optional<FleetModel> findById(Long id) {
         return fleetModelRepository.findById(id);
     }
+
+    public boolean existById(Long id) {
+        return fleetModelRepository.existById(id);
+    }
 }

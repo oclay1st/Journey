@@ -33,4 +33,9 @@ public class JpaFleetModelRepository implements FleetModelRepository {
     public boolean existsByNameAndIdNot(String name, Long id) {
         return fleetModelDAO.existsByNameAndIdNot(name, id);
     }
+
+    @Override
+    public boolean existById(Long id) {
+        return fleetModelDAO.existsById(id);
+    }
 }

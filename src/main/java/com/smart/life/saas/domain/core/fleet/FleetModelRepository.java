@@ -6,4 +6,6 @@ public interface FleetModelRepository extends CrudBaseRepository<FleetModel, Lon
 
     boolean existsByNameAndIdNot(String name, Long id);
 
+    boolean existById(Long id);
+
 }
