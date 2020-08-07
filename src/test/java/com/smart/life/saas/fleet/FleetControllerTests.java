@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,12 +43,15 @@ public class FleetControllerTests {
                         .param("capacity", "5")
                         .param("maxLuggage", "4")
                         .param("active", "true")
-        ).andExpect(status().isCreated())
+        ).andDo(print())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.number", comparesEqualTo("001")))
-                .andExpect(jsonPath("$.modelId", comparesEqualTo("1")))
-                .andExpect(jsonPath("$.capacity", comparesEqualTo("5")))
-                .andExpect(jsonPath("$.maxLuggage", comparesEqualTo("4")))
-                .andExpect(jsonPath("$.active", comparesEqualTo("true")))
+                .andExpect(jsonPath("$.capacity", comparesEqualTo(5)))
+                .andExpect(jsonPath("$.model").isMap())
+                .andExpect(jsonPath("$.model.id", comparesEqualTo(1)))
+                .andExpect(jsonPath("$.model.name", comparesEqualTo("model")))
+                .andExpect(jsonPath("$.maxLuggage", comparesEqualTo(4)))
+                .andExpect(jsonPath("$.active", comparesEqualTo(true)))
                 .andExpect(jsonPath("$.imageUrls").isNotEmpty());
     }
 

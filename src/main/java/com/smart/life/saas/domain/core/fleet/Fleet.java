@@ -21,11 +21,8 @@ public class Fleet {
 
     private String number;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private FleetModel model;
-
-    @NonNull
-    private Long typeId;
 
     @NonNull
     @Min(1)
