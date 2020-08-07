@@ -9,23 +9,23 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class DriverRepositoryJPA implements DriverRepository {
+public class JpaDriverRepository implements DriverRepository {
 
-    private final DriverRepositoryDAO driverRepositoryDAO;
+    private final DriverDAO driverDAO;
 
-    public DriverRepositoryJPA(DriverRepositoryDAO driverRepositoryDAO) {
-        this.driverRepositoryDAO = driverRepositoryDAO;
+    public JpaDriverRepository(DriverDAO driverDAO) {
+        this.driverDAO = driverDAO;
     }
 
     public Optional<Driver> findById(Long id) {
-        return driverRepositoryDAO.findById(id);
+        return driverDAO.findById(id);
     }
 
     public Page<Driver> findAll(Pageable pageable) {
-        return driverRepositoryDAO.findAll(pageable);
+        return driverDAO.findAll(pageable);
     }
 
     public Driver save(Driver driver) {
-        return driverRepositoryDAO.save(driver);
+        return driverDAO.save(driver);
     }
 }

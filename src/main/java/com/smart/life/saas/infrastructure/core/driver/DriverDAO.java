@@ -4,5 +4,5 @@ import com.smart.life.saas.domain.core.driver.Driver;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface DriverRepositoryDAO extends JpaRepository<Driver, Long> {
+public interface DriverDAO extends JpaRepository<Driver, Long> {
 }

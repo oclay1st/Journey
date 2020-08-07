@@ -11,26 +11,26 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class FleetModelRepositoryJPA implements FleetModelRepository {
+public class JpaFleetModelRepository implements FleetModelRepository {
 
-    private final FleetModelRepositoryDAO fleetModelRepositoryDAO;
+    private final FleetModelDAO fleetModelDAO;
 
     public FleetModel save(FleetModel fleetModel) {
-        return fleetModelRepositoryDAO.save(fleetModel);
+        return fleetModelDAO.save(fleetModel);
     }
 
     @Override
     public Page<FleetModel> findAll(Pageable pageable) {
-        return fleetModelRepositoryDAO.findAll(pageable);
+        return fleetModelDAO.findAll(pageable);
     }
 
     @Override
     public Optional<FleetModel> findById(Long id) {
-        return fleetModelRepositoryDAO.findById(id);
+        return fleetModelDAO.findById(id);
     }
 
     @Override
     public boolean existsByNameAndIdNot(String name, Long id) {
-        return fleetModelRepositoryDAO.existsByNameAndIdNot(name, id);
+        return fleetModelDAO.existsByNameAndIdNot(name, id);
     }
 }

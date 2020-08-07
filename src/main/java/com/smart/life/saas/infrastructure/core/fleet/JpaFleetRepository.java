@@ -11,22 +11,22 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class FleetRepositoryJPA implements FleetRepository {
+public class JpaFleetRepository implements FleetRepository {
 
-    private final FleetRepositoryDAO fleetRepositoryDAO;
+    private final FleetDAO fleetDAO;
 
     @Override
     public Fleet save(Fleet fleet) {
-        return fleetRepositoryDAO.save(fleet);
+        return fleetDAO.save(fleet);
     }
 
     @Override
     public Page<Fleet> findAll(Pageable pageable) {
-        return fleetRepositoryDAO.findAll(pageable);
+        return fleetDAO.findAll(pageable);
     }
 
     @Override
     public Optional<Fleet> findById(Long id) {
-        return fleetRepositoryDAO.findById(id);
+        return fleetDAO.findById(id);
     }
 }

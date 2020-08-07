@@ -7,16 +7,16 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class UserRepositoryJPA implements UserRepository {
+public class JpaUserRepository implements UserRepository {
 
-    private final UserRepositoryDAO userRepositoryDAO;
+    private final UserDAO userDAO;
 
-    public UserRepositoryJPA(UserRepositoryDAO userRepositoryDAO) {
-        this.userRepositoryDAO = userRepositoryDAO;
+    public JpaUserRepository(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     @Override
     public Optional<User> findUserByUsername(String username) {
-        return userRepositoryDAO.findByUsername(username);
+        return userDAO.findByUsername(username);
     }
 }

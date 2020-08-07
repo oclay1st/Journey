@@ -7,16 +7,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class OrgRepositoryJPA implements OrgRepository {
+public class JpaOrgRepository implements OrgRepository {
 
-    private final OrgRepositoryDAO orgRepositoryDAO;
+    private final OrgDAO orgDAO;
 
-    public OrgRepositoryJPA(OrgRepositoryDAO orgRepositoryDAO) {
-        this.orgRepositoryDAO = orgRepositoryDAO;
+    public JpaOrgRepository(OrgDAO orgDAO) {
+        this.orgDAO = orgDAO;
     }
 
     @Override
     public List<Org> findAll() {
-        return orgRepositoryDAO.findAll();
+        return orgDAO.findAll();
     }
 }
