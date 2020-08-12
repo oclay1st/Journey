@@ -12,5 +12,5 @@ public interface FileStorageService {
 
     void deleteFile(Path path);
 
-    String getURL(String FileLocation);
+    String getURL(String fileUriPath);
 }

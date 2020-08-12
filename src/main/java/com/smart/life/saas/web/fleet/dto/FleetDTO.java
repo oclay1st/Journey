@@ -8,14 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.List;
 
 @Setter
 @Getter
-public class FleetDTO implements Serializable {
-
-    private static final Long serialVersionUID = 1L;
+public class FleetDTO {
 
     @NotNull
     private String number;

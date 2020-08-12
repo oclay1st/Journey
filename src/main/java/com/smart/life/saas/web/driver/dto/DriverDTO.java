@@ -5,14 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Setter
 @Getter
-public class DriverDTO implements Serializable {
-
-    private static final Long serialVersionUID = 1L;
+public class DriverDTO {
 
     @NotNull
     private String licenseId;

@@ -48,6 +48,11 @@ public class FleetService {
         return fleetRepository.save(fleet);
     }
 
+    /**
+     * Validate fleetDTO on fleet creation
+     *
+     * @param fleetDTO: {@link FleetDTO} a fleet DTO
+     */
     public void validateCreation(FleetDTO fleetDTO) {
         if (!fleetModelService.existById(fleetDTO.getModelId())) {
             throw JourneyException.notFound(String.format("Fleet model with id %s doesn't exists", fleetDTO.getModelId()));
