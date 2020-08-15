@@ -50,7 +50,7 @@ public class FleetController {
         return ResponseEntity.ok(pagedResourcesAssembler.toModel(fleetPage, fleetResourceAssembler));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(FleetConstants.GET_BY_ID_PATH)
     @Operation(summary = "Get a fleet by id")
     @ApiResponse(description = "A fleet entity resource")
     public ResponseEntity<FleetResource> findById(@PathVariable Long id) {
