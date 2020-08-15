@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.comparesEqualTo;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -53,6 +55,18 @@ public class FleetControllerTests {
                 .andExpect(jsonPath("$.maxLuggage", comparesEqualTo(4)))
                 .andExpect(jsonPath("$.active", comparesEqualTo(true)))
                 .andExpect(jsonPath("$.imageUrls").isNotEmpty());
+    }
+
+    @Test
+    public void findAllFleets_empty() throws Exception {
+        mockMvc.perform(
+                get(FleetConstants.BASE_PATH)
+                        .queryParam("page", "1")
+                        .queryParam("size", "10")
+        ).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.page").exists())
+                .andExpect(jsonPath("$.page.totalElements", is(0)));
     }
 
 }

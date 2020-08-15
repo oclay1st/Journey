@@ -5,6 +5,8 @@ import com.smart.life.saas.domain.common.FileStorageService;
 import com.smart.life.saas.infrastructure.core.fleet.FleetConstants;
 import com.smart.life.saas.web.fleet.dto.FleetDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,6 +59,16 @@ public class FleetService {
         if (!fleetModelService.existById(fleetDTO.getModelId())) {
             throw JourneyException.notFound(String.format("Fleet model with id %s doesn't exists", fleetDTO.getModelId()));
         }
+    }
+
+    /**
+     * Find all fleets
+     *
+     * @param pageable: a pageable request param
+     * @return Page: a page of fleets
+     */
+    public Page<Fleet> findAll(Pageable pageable) {
+        return fleetRepository.findAll(pageable);
     }
 
 }

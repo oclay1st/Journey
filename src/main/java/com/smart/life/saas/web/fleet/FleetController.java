@@ -10,13 +10,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -28,6 +29,7 @@ public class FleetController {
 
     private final FleetService fleetService;
     private final FleetResourceAssembler fleetResourceAssembler;
+    private final PagedResourcesAssembler<Fleet> pagedResourcesAssembler;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Create a fleet entity")
@@ -35,5 +37,14 @@ public class FleetController {
     public ResponseEntity<FleetResource> save(@ModelAttribute @Valid FleetDTO fleetDTO) {
         Fleet fleet = fleetService.create(fleetDTO);
         return new ResponseEntity<>(fleetResourceAssembler.toModel(fleet), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    @Operation(summary = "Retrieve a collection of fleet by pagination")
+    @ApiResponse(description = "A collection of fleets")
+    public ResponseEntity<CollectionModel<FleetResource>> findAll(@RequestParam(defaultValue = "0") Integer page,
+                                                                  @RequestParam(defaultValue = "20") Integer size) {
+        Page<Fleet> fleetPage = fleetService.findAll(PageRequest.of(page, size));
+        return ResponseEntity.ok(pagedResourcesAssembler.toModel(fleetPage, fleetResourceAssembler));
     }
 }
