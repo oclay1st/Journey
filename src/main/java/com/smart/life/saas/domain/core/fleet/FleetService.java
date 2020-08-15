@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -22,6 +23,23 @@ public class FleetService {
     private final FleetRepository fleetRepository;
     private final FleetModelService fleetModelService;
     private final FileStorageService fileStorageService;
+
+
+    /**
+     * Validate fleetDTO on fleet creation
+     *
+     * @param fleetDTO: {@link FleetDTO} a fleet DTO
+     */
+    public void validateCreation(FleetDTO fleetDTO) {
+        if (!fleetModelService.existById(fleetDTO.getModelId())) {
+            throw JourneyException.notFound(String.format("Fleet model with id %s doesn't exists", fleetDTO.getModelId()));
+        }
+
+        boolean fleetExists = fleetRepository.existByNumberAndIdNot(fleetDTO.getNumber(), -1L);
+        if (fleetExists) {
+            throw JourneyException.preconditionFailed("Fleet with number: " + fleetDTO.getNumber() + " already exists");
+        }
+    }
 
     /**
      * Create a fleet based on a given fleet DTO
@@ -51,24 +69,22 @@ public class FleetService {
     }
 
     /**
-     * Validate fleetDTO on fleet creation
-     *
-     * @param fleetDTO: {@link FleetDTO} a fleet DTO
-     */
-    public void validateCreation(FleetDTO fleetDTO) {
-        if (!fleetModelService.existById(fleetDTO.getModelId())) {
-            throw JourneyException.notFound(String.format("Fleet model with id %s doesn't exists", fleetDTO.getModelId()));
-        }
-    }
-
-    /**
-     * Find all fleets
+     * Find all fleets by pagination
      *
      * @param pageable: a pageable request param
-     * @return Page: a page of fleets
+     * @return {@link Page<Fleet>}: a page of fleets
      */
     public Page<Fleet> findAll(Pageable pageable) {
         return fleetRepository.findAll(pageable);
     }
 
+    /**
+     * Find a {@link Fleet} by id
+     *
+     * @param id: a fleet identifier
+     * @return {@link Fleet}: a fleet domain model
+     */
+    public Optional<Fleet> findById(Long id) {
+        return fleetRepository.findById(id);
+    }
 }

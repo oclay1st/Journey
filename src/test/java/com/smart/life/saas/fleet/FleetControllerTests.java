@@ -1,8 +1,10 @@
 package com.smart.life.saas.fleet;
 
 
+import com.smart.life.saas.domain.core.fleet.Fleet;
 import com.smart.life.saas.domain.core.fleet.FleetModel;
 import com.smart.life.saas.domain.core.fleet.FleetModelRepository;
+import com.smart.life.saas.domain.core.fleet.FleetRepository;
 import com.smart.life.saas.infrastructure.core.fleet.FleetConstants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +16,9 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.comparesEqualTo;
-import static org.hamcrest.Matchers.is;
+import java.util.Arrays;
+
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -32,6 +35,9 @@ public class FleetControllerTests {
 
     @Autowired
     private FleetModelRepository fleetModelRepository;
+
+    @Autowired
+    private FleetRepository fleetRepository;
 
 
     @Test
@@ -69,4 +75,19 @@ public class FleetControllerTests {
                 .andExpect(jsonPath("$.page.totalElements", is(0)));
     }
 
+    @Test
+    public void findFleetById() throws Exception {
+        FleetModel model = fleetModelRepository.save(new FleetModel(null, "ford", true, "modelImage.jpg"));
+        Fleet fleet = fleetRepository.save(new Fleet(null, "ford123", model, 4, 5, true, Arrays.asList("fleet.png", "fleet2.png")));
+        mockMvc.perform(
+                get(FleetConstants.BASE_PATH + "/" + fleet.getId())
+        ).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", comparesEqualTo(1)))
+                .andExpect(jsonPath("$.number", comparesEqualTo("ford123")))
+                .andExpect(jsonPath("$.capacity", comparesEqualTo(4)))
+                .andExpect(jsonPath("$.maxLuggage", comparesEqualTo(5)))
+                .andExpect(jsonPath("$.imageUrls").isArray())
+                .andExpect(jsonPath("$.imageUrls", hasSize(2)));
+    }
 }

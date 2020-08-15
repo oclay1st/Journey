@@ -29,4 +29,14 @@ public class JpaFleetRepository implements FleetRepository {
     public Optional<Fleet> findById(Long id) {
         return fleetDAO.findById(id);
     }
+
+    @Override
+    public boolean existById(Long id) {
+        return fleetDAO.existsById(id);
+    }
+
+    @Override
+    public boolean existByNumberAndIdNot(String number, Long id) {
+        return fleetDAO.existsByNumberAndIdNot(number, id);
+    }
 }

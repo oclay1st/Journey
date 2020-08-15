@@ -1,13 +1,10 @@
 package com.smart.life.saas.domain.core.fleet;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -19,7 +16,7 @@ import javax.persistence.Id;
 public class FleetModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fleet_model_sequence")
     private Long id;
 
     private String name;

@@ -32,6 +32,7 @@ public class FleetResourceAssembler extends RepresentationModelAssemblerSupport<
         model.setId(entity.getModel().getId());
         model.setName(entity.getModel().getName());
         model.add(linkTo(methodOn(FleetModelController.class).getFleetModelById(model.getId())).withSelfRel());
+        fleetResource.setId(entity.getId());
         fleetResource.setModel(model);
         fleetResource.setNumber(entity.getNumber());
         fleetResource.setActive(entity.isActive());

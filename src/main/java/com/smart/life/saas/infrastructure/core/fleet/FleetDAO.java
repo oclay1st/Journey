@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FleetDAO extends JpaRepository<Fleet, Long> {
 
+    boolean existsByNumberAndIdNot(String number, Long id);
 }

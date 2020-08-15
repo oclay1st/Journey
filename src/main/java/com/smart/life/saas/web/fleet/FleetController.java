@@ -1,5 +1,6 @@
 package com.smart.life.saas.web.fleet;
 
+import com.smart.life.kernel.JourneyException;
 import com.smart.life.saas.domain.core.fleet.Fleet;
 import com.smart.life.saas.domain.core.fleet.FleetService;
 import com.smart.life.saas.infrastructure.core.fleet.FleetConstants;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Tag(name = "Fleets")
 @RestController
@@ -46,5 +48,16 @@ public class FleetController {
                                                                   @RequestParam(defaultValue = "20") Integer size) {
         Page<Fleet> fleetPage = fleetService.findAll(PageRequest.of(page, size));
         return ResponseEntity.ok(pagedResourcesAssembler.toModel(fleetPage, fleetResourceAssembler));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get a fleet by id")
+    @ApiResponse(description = "A fleet entity resource")
+    public ResponseEntity<FleetResource> findById(@PathVariable Long id) {
+        Optional<Fleet> fleet = fleetService.findById(id);
+        if (!fleet.isPresent()) {
+            throw JourneyException.notFound("Not found a fleet with Id : " + id);
+        }
+        return ResponseEntity.ok(fleetResourceAssembler.toModel(fleet.get()));
     }
 }
