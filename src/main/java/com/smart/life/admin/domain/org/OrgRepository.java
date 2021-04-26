@@ -6,4 +6,6 @@ public interface OrgRepository {
 
     List<Org> findAll();
 
+    List<Org> findAllByActiveTrue();
+
 }

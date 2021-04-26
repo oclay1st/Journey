@@ -19,4 +19,8 @@ public class JpaOrgRepository implements OrgRepository {
     public List<Org> findAll() {
         return orgDAO.findAll();
     }
+
+    public List<Org> findAllByActiveTrue(){
+        return orgDAO.findAllByActiveTrue();
+    }
 }
