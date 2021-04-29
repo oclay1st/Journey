@@ -12,7 +12,7 @@ import java.io.IOException;
 public class PageImplJacksonSerializer extends JsonSerializer<PageImpl<?>> {
 
     @Override
-    public void serialize(PageImpl page, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(PageImpl<?> page, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("page", page.getNumber());
         jsonGenerator.writeNumberField("pageSize", page.getSize());
