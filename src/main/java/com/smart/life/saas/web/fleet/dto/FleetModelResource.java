@@ -7,9 +7,6 @@ import org.springframework.hateoas.server.core.Relation;
 
 @Setter
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonRootName(value = "fleetModel")
 @Relation(collectionRelation = "fleetModels")
 @EqualsAndHashCode(callSuper = false)
