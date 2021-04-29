@@ -1,15 +1,14 @@
 package com.smart.life.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 public class BranchIdInterceptor extends HandlerInterceptorAdapter {
-
-    private final Logger logger = LoggerFactory.getLogger(BranchContextHolder.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -18,7 +17,7 @@ public class BranchIdInterceptor extends HandlerInterceptorAdapter {
 
         BranchContextHolder.set(branchId);
 
-        logger.info("Search for X-BranchID  :: \" + branchId");
+        log.info("Search for X-BranchID  :: \" + branchId");
 
         return true;
     }

@@ -1,6 +1,5 @@
 package com.smart.life.config;
 
-
 import com.smart.life.admin.domain.org.Org;
 import com.smart.life.admin.domain.org.OrgRepository;
 import com.zaxxer.hikari.HikariConfig;
@@ -26,21 +25,20 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(transactionManagerRef = "branchTransactionManagerBean",entityManagerFactoryRef = "branchEntityManagerBean", basePackages = "com.smart.life.saas")
+@EnableJpaRepositories(transactionManagerRef = "branchTransactionManagerBean", entityManagerFactoryRef = "branchEntityManagerBean", basePackages = "com.smart.life.saas")
 public class BranchDataSourceConfig {
 
     private final OrgRepository orgRepository;
 
-    public BranchDataSourceConfig(OrgRepository orgRepository){
+    public BranchDataSourceConfig(OrgRepository orgRepository) {
         this.orgRepository = orgRepository;
     }
 
-    @Bean(name = "branchDataSourceBean")
-    public DataSource dataSource(){
-        AbstractRoutingDataSource dataSource = new BranchRoutingAwareDataSource();
-        Map<Object,Object> targetDataSources = new HashMap<>();
-        for(Org org : orgRepository.findAllByActiveTrue()){
-            if(BranchContextHolder.get() == null){
+    @Bean(name = "targetDataSources")
+    public Map<Object, Object> targetDataSources() {
+        Map<Object, Object> targetDataSources = new HashMap<>();
+        for (Org org : orgRepository.findAllByActiveTrue()) {
+            if (BranchContextHolder.get() == null) {
                 BranchContextHolder.set(org.getId().toString());
             }
             Properties properties = new Properties();
@@ -54,13 +52,20 @@ public class BranchDataSourceConfig {
             HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
             targetDataSources.put(org.getId().toString(), hikariDataSource);
         }
+        return targetDataSources;
+    }
+
+    @Bean(name = "branchDataSourceBean")
+    public DataSource dataSource(Map<Object, Object> targetDataSources) {
+        AbstractRoutingDataSource dataSource = new BranchRoutingAwareDataSource();
         dataSource.setTargetDataSources(targetDataSources);
         dataSource.afterPropertiesSet();
         return dataSource;
     }
 
     @Bean(name = "branchEntityManagerBean")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("branchDataSourceBean") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            @Qualifier("branchDataSourceBean") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean localEntityManager = new LocalContainerEntityManagerFactoryBean();
         localEntityManager.setPersistenceUnitName("branchManager");
         localEntityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
@@ -73,9 +78,9 @@ public class BranchDataSourceConfig {
 
     @Bean(name = "branchTransactionManagerBean")
     @DependsOn("branchEntityManagerBean")
-    public PlatformTransactionManager branchTransactionManager(@Qualifier("branchEntityManagerBean") EntityManagerFactory entityManagerFactory) {
+    public PlatformTransactionManager branchTransactionManager(
+            @Qualifier("branchEntityManagerBean") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
-
 
 }
