@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 @Configuration
-@ConditionalOnProperty(prefix = "spring.liquibase", name = "enable", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "journey.liquibase.branch", name = "enable", matchIfMissing = true)
 @EnableConfigurationProperties(LiquibaseProperties.class)
 public class BranchDataSourceLiquibaseConfig {
 
