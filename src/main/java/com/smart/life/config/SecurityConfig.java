@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()//
-                .antMatchers("/users/token").permitAll()//
+                .antMatchers("/auth/token/**").permitAll()//
                 .antMatchers("/swagger-ui/**/**").permitAll()//
                 .antMatchers("/v3/**/**").permitAll()//
                 .antMatchers("/h2-console/**/**").permitAll()
