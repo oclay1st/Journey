@@ -53,7 +53,6 @@ public class DriverService {
         Driver driver = DriverMapping.INSTANCE.driverDTOtoDriver(driverDTO);
         User user = driver.getUser();
         user.setRole(role.get());
-        user.setOrgId(1L);
         User createdUser = appUserDetailService.create(user);
         driver.setUser(createdUser);
         Path path = fileStorageService.resolveFilePath(DriverConstants.DRIVER_IMAGE_PATH, driverDTO.getImageFile().getOriginalFilename());
