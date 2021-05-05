@@ -1,25 +1,22 @@
 package com.smart.life.saas.web.auth.dto;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class LoginDTO {
+public class AuthDTO {
 
-    @NonNull
-    @NotEmpty
     @Email
+    @NotNull
     private String email;
 
-    @NonNull
-    @NotEmpty
+    @NotNull
     private String password;
 
-    @NonNull
+    @NotNull
     private String orgId;
 }
