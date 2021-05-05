@@ -6,7 +6,7 @@ import lombok.Getter;
 public class JourneyException extends RuntimeException {
 
     enum ErrorType {
-        RESOURCE_NOT_FOUND, UNEXPECTED, UNAUTHORIZED, PRECONDITION_FAILED, UNSUPPORTED_TYPE
+        RESOURCE_NOT_FOUND, UNEXPECTED, UNAUTHORIZED, PRECONDITION_FAILED, UNSUPPORTED_TYPE, IVALID_DATA
     }
 
     private final ErrorType errorType;
@@ -23,6 +23,10 @@ public class JourneyException extends RuntimeException {
 
     public static JourneyException notFound(String message) {
         return new JourneyException(message, ErrorType.RESOURCE_NOT_FOUND);
+    }
+
+    public static JourneyException invalidData(String message) {
+        return new JourneyException(message, ErrorType.IVALID_DATA);
     }
 
     public static JourneyException unauthorized(String message) {
