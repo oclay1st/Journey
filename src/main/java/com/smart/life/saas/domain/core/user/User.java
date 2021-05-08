@@ -61,7 +61,7 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<String> allPrivilegesNames = Stream.concat(role.getPrivileges().stream(), assignedPrivileges.stream())
                 .map(Privilege::getName).collect(Collectors.toSet());
-
+        allPrivilegesNames.add("ROLE_" + role.getName());
         return allPrivilegesNames.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
