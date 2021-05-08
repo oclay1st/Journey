@@ -3,6 +3,7 @@ package com.smart.life.saas.domain.core.driver;
 import com.smart.life.saas.domain.common.Gender;
 import com.smart.life.saas.domain.core.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,10 +15,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Driver {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "driver_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull
