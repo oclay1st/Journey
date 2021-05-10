@@ -1,7 +1,5 @@
 package com.smart.life.config;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -22,8 +20,8 @@ public class BranchDataSourceLiquibaseConfig {
 
     @Bean
     @DependsOn("branchDataSourceBean")
-    public BranchDataSourceLiquibase branchDataSourceLiquibase(Map<Object, Object> targetDataSources,
+    public BranchDataSourceLiquibase branchDataSourceLiquibase(BranchDataSourceProvider branchDataSourceProvider,
             @Qualifier("branchLiquibaseProperties") LiquibaseProperties branchLiquibaseProperties) {
-        return new BranchDataSourceLiquibase(targetDataSources, branchLiquibaseProperties);
+        return new BranchDataSourceLiquibase(branchDataSourceProvider.getDataSources(), branchLiquibaseProperties);
     }
 }
