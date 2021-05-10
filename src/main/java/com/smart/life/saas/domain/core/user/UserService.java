@@ -68,10 +68,11 @@ public class UserService implements UserDetailsService {
     /**
      * Find {@link User} given the email and password
      * @param email : an user email 
-     * @param password: a user password
+     * @param plainTextPassword: a user password
      * @return User: an user object
      */
-    public User findUserByEmailAndPassword(String email, String password){
+    public User findUserByEmailAndPassword(String email, String plainTextPassword){
+        String password = passwordEncoder.encode(plainTextPassword);
         Optional<User> user =  userRepository.findByEmailAndPassword(email, password);
         if(!user.isPresent()){
             throw JourneyException.notFound("Invalid email or password");
