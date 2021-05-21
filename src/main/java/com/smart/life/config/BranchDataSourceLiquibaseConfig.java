@@ -20,7 +20,7 @@ public class BranchDataSourceLiquibaseConfig {
 
     @Bean
     @DependsOn("branchDataSourceBean")
-    public BranchDataSourceLiquibase branchDataSourceLiquibase(BranchDataSourceProvider branchDataSourceProvider,
+    public BranchDataSourceLiquibase branchDataSourceLiquibase(DataSourceProvider branchDataSourceProvider,
             @Qualifier("branchLiquibaseProperties") LiquibaseProperties branchLiquibaseProperties) {
         return new BranchDataSourceLiquibase(branchDataSourceProvider.getDataSources(), branchLiquibaseProperties);
     }

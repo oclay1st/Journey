@@ -23,7 +23,7 @@ public class BranchDataSourceConfig {
 
   
     @Bean(name = "branchDataSourceBean")
-    public DataSource dataSource(BranchDataSourceProvider branchDataSourceProvider) {
+    public DataSource dataSource(DataSourceProvider branchDataSourceProvider) {
         AbstractRoutingDataSource dataSource = new BranchRoutingAwareDataSource();
         dataSource.setTargetDataSources(branchDataSourceProvider.getDataSources());
         dataSource.afterPropertiesSet();
