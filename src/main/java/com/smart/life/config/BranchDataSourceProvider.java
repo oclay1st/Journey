@@ -12,7 +12,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BranchDataSourceProvider {
+public class BranchDataSourceProvider implements DataSourceProvider{
     
     private Map<Object, Object> dataSources;
 
